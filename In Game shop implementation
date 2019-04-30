@@ -47,31 +47,40 @@ void Magical_shop() {
 				if (c.crystals >= 25) {
 					printf("You bought 25 hp potion\n ");
 					c.crystals = c.crystals - 25;
+					Inventory.potion25hp = Inventory.potion25hp + 1;
 					printf("Now you have %d \n", c.crystals);
 				}
 				else {
 					printf("Sorry you don't have enough crystals to buy a potion");
 				}
+				printf("Press 2 if you would like to exit the shop");
+				scanf_s("%d", &decision);
 				break;
 			case 2:
 				if (c.crystals >= 50) {
 					printf("You bought 50 hp potion\n");
 					c.crystals = c.crystals - 50;
+					Inventory.potion50hp = Inventory.potion50hp + 1;
 					printf("Now you have %d\n", c.crystals);
 				}
 				else {
 					printf("Sorry you don't have enough crystals to buy a potion\n");
 				}
+				printf("Press 2 if you would like to exit the shop");
+				scanf_s("%d", &decision);
 				break;
 			case 3:
 				if (c.crystals >= 75) {
 					printf("You bought 75 hp potion\n");
 					c.crystals = c.crystals - 75;
+					Inventory.potion75hp = Inventory.potion75hp + 1;
 					printf("Now you have %d crystals\n", c.crystals);
 				}
 				else {
 					printf("Sorry you dont't have enough crystals to buy a potion\n");
 				}
+				printf("Press 2 if you would like to exit the shop");
+				scanf_s("%d", &decision);
 			default:
 				break;
 			}
@@ -86,31 +95,40 @@ void Magical_shop() {
 				if (c.crystals >= 50) {
 					printf("You bought a Basic wand\n");
 					c.crystals = c.crystals - 50;
+					Inventory.Basic_wand = Inventory.Basic_wand + 1;
 					printf("Now you have %d crystals\n", c.crystals);
 				}
 				else {
 					printf("You don't have enough crystals to buy a wand\n");
 				}
+				printf("Press 2 if you would like to exit the shop");
+				scanf_s("%d", &decision);
 				break;
 			case 2:
 				if (c.crystals >= 100) {
 					printf("You bought a Premium Wand\n");
 					c.crystals = c.crystals - 100;
+					Inventory.Premium_wand=Inventory.Premium_wand + 1;
 					printf("Now you have %d crystals\n", c.crystals);
 				}
 				else {
 					printf("You don't have enough crystals to buy a wand\n");
 				}
+				printf("Press 2 if you would like to exit the shop");
+				scanf_s("%d", &decision);
 				break;
 			case 3:
 				if (c.crystals >= 200) {
 					printf("You bought a Legendary Wand\n");
 					c.crystals = c.crystals - 200;
+					Inventory.Legendary_wand = Inventory.Legendary_wand + 1;
 					printf("Now you have %d crystals", c.crystals);
 				}
 				else {
 					printf("You don't have enought crystals to buy a wand\n");
 				}
+				printf("Press 2 if you would like to exit the shop");
+				scanf_s("%d", &decision);
 				break;
 			default:
 				break;
@@ -121,8 +139,13 @@ void Magical_shop() {
 		}
 	} while (decision == 1);
 }
+void Display_Inventory() {
+	printf("Your inventory:\n");
+	printf("Basic wand:%d, Premium wand:%d, Legendary wand:%d", Inventory.Basic_wand, Inventory.Premium_wand, Inventory.Legendary_wand);
+	printf("25 hp Potion:%d, 50 hp Potion:%d, 75 hp potion:%d", Inventory.potion25hp, Inventory.potion50hp, Inventory.potion75hp );
+}
 int main() {
-	c.crystals = 5;
+	c.crystals = 500;
 	Inventory.Basic_wand = 0;
 	Inventory.Premium_wand = 0;
 	Inventory.Legendary_wand = 0;
@@ -131,6 +154,7 @@ int main() {
 	Inventory.potion75hp = 0;
 
 	Magical_shop();
+	Display_Inventory();
 
 	system("PAUSE");
 	return 0;
