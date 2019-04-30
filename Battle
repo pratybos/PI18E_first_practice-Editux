@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Mage
+{
+	int health;
+	int damage;
+}mage;
+struct Monster {
+	int health;
+	int damage;
+
+}monster;
+struct Inventory {
+	int Basic_wand;
+	int Premium_wand;
+	int Legendary_wand;
+
+	int potion25hp;
+	int potion50hp;
+	int potion75hp;
+}Inventory;
+
+void Attack() {
+	mage.damage = 15;
+	if (Inventory.Basic_wand>=1) {
+		mage.damage = mage.damage + 5;
+	}
+	else if (Inventory.Premium_wand>=1)
+	{
+		mage.damage = mage.damage - 5 + 10;
+	}
+	else if (Inventory.Legendary_wand >= 1) {
+		mage.damage = mage.damage - 15 + 15;
+	}
+	monster.health = monster.health - mage.damage;
+
+}
+void Heal() {
+	int option = 1;
+	printf("Which potion you want to use\n");
+	printf("1- 25 hp Potion\n");
+	printf("2- 50 hp Potion\n");
+	printf("3- 75 hp Potion\n");
+	scanf_s("%d", &option);
+	switch (option)
+	{
+	case 1:
+		if (Inventory.potion25hp >= 1) {
+			printf("You used 25 hp potion\n");
+			mage.health = mage.health + 25;
+			printf("Now you have %d health\n", mage.health);
+
+		}
+		else {
+			printf("You don't have that potion in your Inventory\n");
+		}
+	case 2:
+		if (Inventory.potion50hp >= 1) {
+			printf("You used 50 hp potion\n");
+			mage.health = mage.health + 50;
+			printf("Now you have %d health\n", mage.health);
+		}
+		else {
+			printf("You don't have that potion in your Inventory\n");
+		}
+	case 3:
+		if (Inventory.potion75hp >= 1) {
+			printf("You used 75 hp potion\n");
+			mage.health = mage.health + 75;
+			printf("Now you have %d health\n", mage.health);
+		}
+		else {
+			printf("You don't have that potion in your Inventory\n");
+		}
+	default:
+		break;
+	}
+
+}
