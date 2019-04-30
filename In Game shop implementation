@@ -1,0 +1,137 @@
+/*
+          Shop, Inventory and Currency Implementation
+
+
+*/
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct Inventory{
+	int Basic_wand;
+	int Premium_wand;
+	int Legendary_wand;
+
+	int potion25hp;
+	int potion50hp;
+	int potion75hp;
+}Inventory;
+
+struct Currency {
+	int crystals;
+}c;
+
+void Magical_shop() {
+	int option=0;
+	int selection=0;
+	int decision=0;
+	
+	do {
+		printf("Welcome to the shop!\n");
+		printf("Currently you have %d crystals", c.crystals);
+		printf("Would you like to buy potion or wand?\n");
+		printf("Potions- 1, Wands -2\n");
+		scanf_s("%d", &option);
+
+		switch (option)
+		{
+		case 1:
+			printf("1.Potion 25 hp - 25 crystals\n");
+			printf("2. Potion 50 hp - 50 crystals \n");
+			printf("3. Photion 75 hp - 75 cristals\n");
+			scanf_s("%d", &selection);
+
+			switch (selection)
+			{
+			case 1:
+				if (c.crystals >= 25) {
+					printf("You bought 25 hp potion\n ");
+					c.crystals = c.crystals - 25;
+					printf("Now you have %d \n", c.crystals);
+				}
+				else {
+					printf("Sorry you don't have enough crystals to buy a potion");
+				}
+				break;
+			case 2:
+				if (c.crystals >= 50) {
+					printf("You bought 50 hp potion\n");
+					c.crystals = c.crystals - 50;
+					printf("Now you have %d\n", c.crystals);
+				}
+				else {
+					printf("Sorry you don't have enough crystals to buy a potion\n");
+				}
+				break;
+			case 3:
+				if (c.crystals >= 75) {
+					printf("You bought 75 hp potion\n");
+					c.crystals = c.crystals - 75;
+					printf("Now you have %d crystals\n", c.crystals);
+				}
+				else {
+					printf("Sorry you dont't have enough crystals to buy a potion\n");
+				}
+			default:
+				break;
+			}
+		case 2:
+			printf("1. Basic wand- 50 crystals\n");
+			printf("2. Premium wand- 100 crystals\n");
+			printf("3. Legendary wand - 200 crystals\n");
+			scanf_s("%d", &selection);
+			switch (selection)
+			{
+			case 1:
+				if (c.crystals >= 50) {
+					printf("You bought a Basic wand\n");
+					c.crystals = c.crystals - 50;
+					printf("Now you have %d crystals\n", c.crystals);
+				}
+				else {
+					printf("You don't have enough crystals to buy a wand\n");
+				}
+				break;
+			case 2:
+				if (c.crystals >= 100) {
+					printf("You bought a Premium Wand\n");
+					c.crystals = c.crystals - 100;
+					printf("Now you have %d crystals\n", c.crystals);
+				}
+				else {
+					printf("You don't have enough crystals to buy a wand\n");
+				}
+				break;
+			case 3:
+				if (c.crystals >= 200) {
+					printf("You bought a Legendary Wand\n");
+					c.crystals = c.crystals - 200;
+					printf("Now you have %d crystals", c.crystals);
+				}
+				else {
+					printf("You don't have enought crystals to buy a wand\n");
+				}
+				break;
+			default:
+				break;
+			}
+
+		default:
+			break;
+		}
+	} while (decision == 1);
+}
+int main() {
+	c.crystals = 5;
+	Inventory.Basic_wand = 0;
+	Inventory.Premium_wand = 0;
+	Inventory.Legendary_wand = 0;
+	Inventory.potion25hp = 0;
+	Inventory.potion50hp = 0;
+	Inventory.potion75hp = 0;
+
+	Magical_shop();
+
+	system("PAUSE");
+	return 0;
+}
