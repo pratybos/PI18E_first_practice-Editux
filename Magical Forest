@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Mage
+{
+	int health;
+
+	int damage;
+
+};
+void cancel() {
+	exit(0);
+}
+
+void main_menu(){
+	int option = 0;
+	printf("Main menu:");
+	printf("1.Play  the first level");
+	printf("2.Continue on the next level ");
+	printf("3. Exit the game");
+	scanf_s("%d", &option);
+	switch (option)
+	{
+	case 3:
+		cancel();
+		break;
+
+	default:
+		break;
+	}
+
+}
+
+int main() {
+	printf("Hello!");
+	main_menu();
+	printf("Bye");
+
+	system("PAUSE");
+	return 0;
+}
