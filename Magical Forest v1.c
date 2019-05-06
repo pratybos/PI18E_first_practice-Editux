@@ -18,7 +18,6 @@ struct Inventory {
 	int Basic_wand;
 	int Premium_wand;
 	int Legendary_wand;
-
 	int potion25hp;
 	int potion50hp;
 	int potion75hp;
