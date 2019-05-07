@@ -6,3 +6,5 @@ Task 1- Magical Forest v1 .c
 
 
 Task 2-Magical Forest v1.1 .c
+
+Task 3- output.hmtl
