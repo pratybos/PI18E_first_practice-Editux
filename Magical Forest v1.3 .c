@@ -12,7 +12,6 @@ Update:
 struct Mage
 {
 	int health;
-
 	int damage;
 	char level[10];
 
