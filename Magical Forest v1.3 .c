@@ -1,6 +1,6 @@
 /*
 Update:
--Added Level Generator fuction that Generates random level.
+-Added Level Editor Player can Edit Monser health and damage and the file it's will transfer information in the file
 
 */
 #define _CRT_SECURE_NO_WARNINGS
@@ -12,6 +12,7 @@ Update:
 struct Mage
 {
 	int health;
+
 	int damage;
 	char level[10];
 
@@ -58,9 +59,8 @@ void Heal();
 void DisplayFirstBattle();
 void DisplayAchievements();
 void PlayerHUD();
-void DisplaySecondBattle();
-void DisplayThirdBattle();
-void LevelGenerator();
+void LevelEditor();
+void LevelLoader();
 int main()
 {
 	//Currency
@@ -100,12 +100,13 @@ void main_menu() {
 	do {
 		printf("Main menu:\n");
 		printf("1.Play  the first level\n");
-		printf("2. Level Generator\n");
+		printf("2. Level Editor\n");
 		printf("3.Go to Magical shop \n");
 		printf("4. Check Inventory\n");
 		printf("5. Check Achievements\n");
 		printf("6.Check Player's Information\n");
-		printf("7. Exit the game\n");
+		printf("7.Load level\n");
+		printf("8. Exit the game\n");
 		scanf_s("%d", &option);
 		switch (option)
 		{
@@ -113,7 +114,7 @@ void main_menu() {
 			DisplayFirstBattle();
 			break;
 		case 2:
-			LevelRandomizer();
+			LevelEditor();
 			break;
 		case 3:
 			Magical_shop();
@@ -128,6 +129,9 @@ void main_menu() {
 			PlayerHUD();
 			break;
 		case 7:
+			LevelLoader();
+			break;
+		case 8:
 			exit(0);
 			break;
 
@@ -349,7 +353,7 @@ void Display_Inventory() {
 }
 void Attack() {
 	mage.damage = 15;
-	monster.damage = 10;
+	
 	if (Inventory.Basic_wand >= 1) {
 		mage.damage = mage.damage + 5;
 	}
@@ -479,14 +483,27 @@ void PlayerHUD() {
 	printf("Damage: %d\n",mage.damage);
 	printf("Level: %s\n",mage.level);
 }
-void DisplaySecondBattle() {
-	int choice;
-	mage.health = 50;
-	monster.health = 100;
-	printf(" C level monster decided to attack you\n");
 
-	printf("Your mission to kill C class monster\n");
-	printf("Reward:200 crystals\n");
+
+
+void LevelEditor() {
+	int choice;
+	FILE *fptr;
+	mage.health = 50;
+	printf("Write how much health you want monster to have?\n");
+	scanf_s("%d", &monster.health);
+	printf("Write how much damage you want monster to make?\n");
+	scanf_s("%d", &monster.damage);
+	printf("Monster has %d health and %d damage\n", monster.health, monster.damage);
+
+	 fptr=fopen("text.txt", "w");
+	 if (fptr == NULL) {
+		 printf("FIle is failed to open");
+	 }
+	 else {
+		 fprintf(fptr, "%d %d", monster.health, monster.damage);
+	 }
+		fclose(fptr);
 	do {
 
 		printf("1.Attack, 2.Heal, 3. Run \n ");
@@ -512,70 +529,53 @@ void DisplaySecondBattle() {
 
 			printf("You won");
 			printf("You got 100 crystals reward for killing the monster\n");
-			c.crystals = c.crystals + 200;
+			
 			break;
 		}
 	} while (1);
 }
-
-
-
-void DisplayThirdBattle() {
+void LevelLoader() {
+	FILE *fptr;
 	int choice;
 	mage.health = 50;
-	monster.health = 150;
-	printf(" A level monster decided to attack you\n");
 
-	printf("Your mission to kill C class monster\n");
-	printf("Reward:300 crystals\n");
-	do {
-
-		printf("1.Attack, 2.Heal, 3. Run \n ");
-		scanf_s("%d", &choice);
-		switch (choice)
-		{
-		case 1:
-			Attack();
-			break;
-		case 2:
-			Heal();
-			break;
-		case 3:
-			return;
-		default:
-			break;
-		}
-		if (mage.health <= 0) {
-			printf("Monster won\n");
-			break;
-		}
-		else if (monster.health <= 0) {
-
-			printf("You won");
-			printf("You got 100 crystals reward for killing the monster\n");
-			c.crystals = c.crystals + 300;
-			break;
-		}
-	} while (1);
-}
-void LevelGenerator() {
-
-	srand(time(0));
-	int randomizer;
-
-	randomizer = rand(2);
-
-	switch (randomizer){
-		case 0:
-			DisplayFirstBattle();
-			break;
-		case 1:
-			DisplaySecondBattle();
-			break;
-		case 2:
-			DisplayThirdBattle();
-	default:
-		break;
+	fptr = fopen("text.txt", "r");
+	if (fptr == NULL) {
+		printf("FIle is failed to open");
 	}
+	else {
+		fscanf(fptr, "%d %d", monster.health, monster.damage);
+		printf("Monster has %d health and %d damage\n", monster.health, monster.damage);
 
+	}
+	fclose(fptr);
+	do {
+
+		printf("1.Attack, 2.Heal, 3. Run \n ");
+		scanf_s("%d", &choice);
+		switch (choice)
+		{
+		case 1:
+			Attack();
+			break;
+		case 2:
+			Heal();
+			break;
+		case 3:
+			return;
+		default:
+			break;
+		}
+		if (mage.health <= 0) {
+			printf("Monster won\n");
+			break;
+		}
+		else if (monster.health <= 0) {
+
+			printf("You won");
+			printf("You got 100 crystals reward for killing the monster\n");
+
+			break;
+		}
+	} while (1);
 }
